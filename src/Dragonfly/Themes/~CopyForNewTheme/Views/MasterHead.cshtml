@@ -1,0 +1,47 @@
+﻿@using System.Web.Mvc.Html
+@using Dragonfly.NetHelpers
+@using Skybrud.Umbraco.GridData.Extensions
+@using Dragonfly.Umbraco7Helpers
+@using Dragonfly.UmbracoTheming
+@using HeatherFloyd.Core.Helpers
+@using HeatherFloyd.Core.Models
+@using Umbraco.Web.Mvc
+
+@inherits UmbracoViewPage<IBaseModel>
+@{
+    Layout = null;
+
+    var thisTheme = Model.ThemeName;
+}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="@Model.LanguageCode" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="@Model.LanguageCode" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="@Model.LanguageCode" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="@Model.LanguageCode" class="no-js">
+<!--<![endif]-->
+<head>
+    <!-- General Meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+
+    <title>@Model.MetaTitle</title>
+    <meta name="description" content="@Model.MetaDescription">
+
+    <link rel="shortcut icon" href="@Url.ThemedAsset(thisTheme, "images/favicon.ico")">
+
+    <!-- Site-wide CSS -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="@Url.ThemedAsset(thisTheme, "css/bootstrap.min.css")" />
+
+    <!-- Template styles-->
+    <link rel="stylesheet" href="@Url.ThemedAsset(thisTheme, "css/custom.css")" />
+
+    <!-- Site-wide HEAD Js -->
+    @RenderSection("HeaderScripts", required: false)
+
+    @{Html.RenderPartial("~/Views/Partials/DragonflyGoogle_Head.cshtml");}
+</head>
+@RenderBody()
+</html>

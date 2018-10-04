@@ -1,0 +1,24 @@
+﻿
+@using Dragonfly.UmbracoTheming
+@using HeatherFloyd.Core.Helpers
+@using HeatherFloyd.Core.Logic
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+@*
+    Expected Parameters:
+    -------------------
+    Title (string)
+
+    Example Usage:
+    --------------
+    @Umbraco.RenderMacro("BlogPosts_Latest", new {
+            Title="Social Media"
+            })
+*@
+
+@{
+    var site = SiteHelpers.GetSite(Umbraco.AssignedContentItem);
+    var thisBaseModel = BaseModelLogic.CreateBaseModel(Umbraco.AssignedContentItem);
+}
+
+@Html.ThemedPartial(site.Theme, "Macro_BlogPosts_Latest", thisBaseModel, new ViewDataDictionary{ { "MacroParams", Model.MacroParameters}})

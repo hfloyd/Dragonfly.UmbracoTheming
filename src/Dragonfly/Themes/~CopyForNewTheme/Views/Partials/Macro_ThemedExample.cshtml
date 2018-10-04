@@ -1,0 +1,28 @@
+﻿@using Umbraco.Core
+@using Umbraco.Web.Mvc
+@using Dragonfly.NetModels
+@using Dragonfly.Theming
+@using Newtonsoft.Json
+@using Umbraco.Web.Models
+
+@inherits UmbracoViewPage<IBaseModel>
+
+@{
+    var thisTheme = Model.ThemeName;
+
+    var macroParams = ViewData["MacroParams"] != null ? ViewData["MacroParams"] as IDictionary<string, object>: new Dictionary<string, object>();
+
+    var myParam = Dragonfly.Umbraco7Helpers.Macros.GetSafeParamInt(macroParams, "myParam");
+    var myOtherParam = Dragonfly.Umbraco7Helpers.Macros.GetSafeParamInt(macroParams, "myOtherParam");
+
+    //Code here to do stuff...
+	var someModelData = null;
+
+}
+
+
+		//You can call other Themed partials as well...
+        @Html.ThemedPartial(thisTheme, "MyPartial", someModelData)
+       
+
+

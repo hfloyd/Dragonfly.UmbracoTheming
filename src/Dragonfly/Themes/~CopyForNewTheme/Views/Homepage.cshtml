@@ -1,0 +1,25 @@
+﻿@using Dragonfly.NetHelpers
+@using Skybrud.Umbraco.GridData.Extensions
+@using Dragonfly.Umbraco7Helpers
+@using Dragonfly.UmbracoTheming
+@using HeatherFloyd.Core.Helpers
+@using HeatherFloyd.Core.Models
+@using Umbraco.Web.Mvc
+
+@inherits UmbracoViewPage<BaseModel<Homepage>>
+@{
+    Layout = "MasterBody.cshtml";
+
+    var thisTheme = Model.ThemeName;
+}
+@section HeaderScripts { }
+@section FooterScripts { }
+
+
+@*//Main Content Grid*@
+@if (Model.Content.PageContent.IsValid)
+{
+	<!--START GRID-->
+    @Html.GetTypedGridHtml(Model.Content.PageContent, Model.GridFrameworkFullPage)
+	<!--END GRID-->
+}

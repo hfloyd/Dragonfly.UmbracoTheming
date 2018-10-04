@@ -1,0 +1,65 @@
+﻿@using Dragonfly.NetHelpers
+@using Skybrud.Umbraco.GridData.Extensions
+@using Dragonfly.Umbraco7Helpers
+@using Dragonfly.UmbracoTheming
+@using HeatherFloyd.Core.Helpers
+@using HeatherFloyd.Core.Models
+@using Umbraco.Web.Mvc
+
+@inherits UmbracoViewPage<IBaseModel>
+@{
+    Layout = "MasterHead.cshtml";
+
+    var thisTheme = Model.ThemeName;
+}
+@section HeaderScripts
+{
+    @RenderSection("HeaderScripts", required: false)
+}
+
+<body class="@Model.BodyCss">
+    @{ Html.RenderPartial("~/Views/Partials/ScandzaGoogle_Body.cshtml"); }
+
+    <div class="page">
+        <div class="wrap">
+            <header>
+                <a href="@Model.Site.Url" class="logo pull-left">Home</a>
+
+                @{Html.RenderPartial("~/Views/Partials/Nav_Main.cshtml", Model,
+                        new ViewDataDictionary{
+                        { "DisplayType", "Desktop" }
+                        });}
+
+            </header>
+
+            <p><b>NOTE:</b> All Site Design Templates should be created in the appropriate '/App_Plugins/Theming/Themes/' folder.</p>
+
+            @RenderBody() @*CHILD TEMPLATE BODY HERE*@
+
+        </div>
+
+        <footer>
+            <div class="container">
+                @{ Html.RenderPartial("~/Views/Partials/Nav_Footer.cshtml"); }
+            </div>
+        </footer>
+    </div>
+
+    <div class="media-modal modal fade">
+        <span class="close"></span>
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-inner">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page footer Js -->
+    @RenderSection("FooterScripts", required: false)
+
+</body>

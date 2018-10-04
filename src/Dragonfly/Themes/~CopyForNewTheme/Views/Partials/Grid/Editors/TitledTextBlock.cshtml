@@ -1,0 +1,241 @@
+﻿@using Dragonfly.NetHelpers
+@using Dragonfly.Umbraco7Helpers
+@using Dragonfly.UmbracoModels
+@using HeatherFloyd.Core.Helpers
+@using Umbraco.Core
+@using Umbraco.Core.Logging
+@using Umbraco.Web
+@using Umbraco.Web.Mvc
+
+@inherits UmbracoViewPage<Lecoati.LeBlender.Extension.Models.LeBlenderModel>
+
+@if (Model.Items.Any())
+{
+    var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
+    var isBackOffice = Mvc.IsRenderingInBackOffice(this.Request.Url);
+
+    //Used for error logging
+    var thisWidgetName = "TitledTextBlock";
+    var nodeUrl = "UNKNOWN (Back-office)";
+    if (!isBackOffice)
+    {
+        nodeUrl = umbracoHelper.AssignedContentItem.Url;
+    }
+    var defaultErrorMsg = string.Format("ERROR in {0} Grid Editor on page '{1}': ", thisWidgetName, nodeUrl);
+
+    //Only supports a single item
+    var item = Model.Items.FirstOrDefault();
+
+    //Icon
+    var icon = "";
+    try
+    {
+        icon = item.GetValue("Icon");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "Icon");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+
+    //Header
+    var header = "";
+    try
+    {
+        header = item.GetValue("Header");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "Header");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+    //Text Content
+    var textContent = "";
+    try
+    {
+        textContent = item.GetValue("TextContent");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "TextContent");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+
+    // Link & Custom Link Text
+    var linkText = "";
+    try
+    {
+        linkText = item.GetValue("LinkText");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "LinkText");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+    var link = new Link();
+    try
+    {
+        link = item.GetValue<Newtonsoft.Json.Linq.JToken>("Link").ToLink() as Link;
+
+        //Update with custom link text
+        if (!string.IsNullOrEmpty(linkText))
+        {
+            link.Title = linkText;
+        }
+
+        if (!Mvc.IsRenderingInBackOffice(this.Request.Url) & link.ContentNode != null)
+        {
+            //update with node redirect info, if front-end request
+            link.Url = SiteHelpers.CalculateFinalUrl(umbracoHelper, link.ContentNode, "",false); 
+            if (SiteHelpers.GetRedirectInNewWindow(link.ContentNode))
+            {
+                link.Target = "_blank";
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "Link");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+    //Line Style
+    var lineStyleValue = 0;
+    try
+    {
+        lineStyleValue = item.GetValue<int>("LineStyle");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "LineStyle");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+
+    var boxClass = "";
+    if (lineStyleValue != 0)
+    {
+        var lineStyle = Umbraco.GetPreValueAsString(lineStyleValue);
+
+        if (lineStyle != null)
+        {
+            switch (lineStyle)
+            {
+                case "None":
+                    boxClass = "no-line";
+                    break;
+
+                case "Thick":
+                    boxClass = "thick-line";
+                    break;
+
+                case "Thin":
+                    boxClass = "thin-line";
+                    break;
+
+                default:
+                    boxClass = lineStyle;
+                    break;
+            }
+        }
+    }
+
+    //Line Position
+    var linePositionValue = 0;
+    try
+    {
+        linePositionValue = item.GetValue<int>("LinePosition");
+    }
+    catch (Exception ex)
+    {
+        var msg = string.Format("{0} [Property '{1}']", defaultErrorMsg, "LinePosition");
+        LogHelper.Error<UmbracoViewPage>(msg, ex);
+    }
+
+    var styleClass = "";
+    if (linePositionValue != 0)
+    {
+        var linePosition = Umbraco.GetPreValueAsString(linePositionValue);
+
+        if (linePosition != null)
+        {
+            switch (linePosition)
+            {
+                case "Above Title":
+                    styleClass = "";
+                    break;
+
+                case "Between Title and Text":
+                    styleClass = "styled-text-box";
+                    boxClass = "";
+                    break;
+
+                default:
+                    styleClass = "";
+                    break;
+            }
+        }
+    }
+
+    // Back-office rendering
+    if (isBackOffice)
+    {
+        <style>
+            .widget-titled-text-box .thick-line {
+                border-top: 3px solid #000000;
+            }
+
+            .widget-titled-text-box .thin-line {
+                border-top: 1px solid #000000;
+            }
+        </style>
+    }
+
+    var hasLink = link != null && link.Url != "";
+
+    // FRONT-END RENDERING STARTS HERE
+
+    <div class="services-post widget-titled-text-box @boxClass @styleClass">
+        @if (hasLink)
+        {
+            <a class="icon" href="@link.Url" target="@link.Target" title="@link.Title" class="learn-more-link">
+                @if (!string.IsNullOrWhiteSpace(icon))
+                {
+                    <i class="fa @icon"></i>
+                }
+                else
+                {
+                    <h2>@Html.Raw(header)</h2>
+                }
+            </a>
+            if (!string.IsNullOrWhiteSpace(icon))
+            {
+                <h2>@Html.Raw(header)</h2>
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(icon))
+            {
+                <span class="icon"><i class="fa @icon"></i></span>
+            }
+            <h2>@Html.Raw(header)</h2>
+        }
+
+        <p>@Html.Raw(textContent)</p>
+    </div>
+
+    @*<div class="widget-titled-text-box @boxClass @styleClass">
+            <h4 class="title">@header</h4>
+
+
+            @if (link != null && link.Url != "")
+            {
+                <a href="@link.Url" target="@link.Target" class="learn-more-link">@link.Title</a>
+            }
+        </div>*@
+}

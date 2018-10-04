@@ -1,0 +1,24 @@
+﻿@using Dragonfly.NetHelpers
+@using Skybrud.Umbraco.GridData.Extensions
+@using Dragonfly.Umbraco7Helpers
+@using Dragonfly.UmbracoTheming
+@using HeatherFloyd.Core.Helpers
+@using HeatherFloyd.Core.Models
+@using Umbraco.Web.Mvc
+
+@inherits UmbracoViewPage<IBaseModel>
+@{
+    Layout = "MasterBody.cshtml";
+}
+
+@section HeaderScripts
+{
+	@RenderSection("HeaderScripts", required : false)
+}
+
+@section FooterScripts
+{
+	@RenderSection("FooterScripts", required : false)
+}
+
+@RenderBody()
