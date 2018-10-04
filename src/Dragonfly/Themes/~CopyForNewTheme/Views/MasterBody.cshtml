@@ -1,38 +1,33 @@
-﻿@using Dragonfly.NetHelpers
-@using Skybrud.Umbraco.GridData.Extensions
-@using Dragonfly.Umbraco7Helpers
+﻿@using System.Web.Mvc.Html
 @using Dragonfly.UmbracoTheming
-@using HeatherFloyd.Core.Helpers
-@using HeatherFloyd.Core.Models
+@using Umbraco.Web
 @using Umbraco.Web.Mvc
 
-@inherits UmbracoViewPage<IBaseModel>
+@inherits UmbracoTemplatePage
 @{
     Layout = "MasterHead.cshtml";
 
-    var thisTheme = Model.ThemeName;
+    var thisTheme = Model.Content.GetPropertyValue<string>("SiteTheme", recurse: true);
 }
+
 @section HeaderScripts
 {
     @RenderSection("HeaderScripts", required: false)
 }
 
-<body class="@Model.BodyCss">
-    @{ Html.RenderPartial("~/Views/Partials/ScandzaGoogle_Body.cshtml"); }
+<body class="BodyCss">
+    @{ Html.RenderPartial("~/Views/Partials/GenricPartial.cshtml"); }
 
     <div class="page">
         <div class="wrap">
             <header>
-                <a href="@Model.Site.Url" class="logo pull-left">Home</a>
+                <a href="Site.Url" class="logo pull-left">Home</a>
 
-                @{Html.RenderPartial("~/Views/Partials/Nav_Main.cshtml", Model,
-                        new ViewDataDictionary{
-                        { "DisplayType", "Desktop" }
-                        });}
+                @Html.ThemedPartial(thisTheme, "Nav_Main", Model)
 
             </header>
 
-            <p><b>NOTE:</b> All Site Design Templates should be created in the appropriate '/App_Plugins/Theming/Themes/' folder.</p>
+            <p><b>NOTE:</b> All Site Design Templates should be created in the appropriate '/Themes/' folder.</p>
 
             @RenderBody() @*CHILD TEMPLATE BODY HERE*@
 
@@ -40,7 +35,7 @@
 
         <footer>
             <div class="container">
-                @{ Html.RenderPartial("~/Views/Partials/Nav_Footer.cshtml"); }
+                @Html.ThemedPartial(thisTheme, "Nav_Footer", Model)
             </div>
         </footer>
     </div>
@@ -57,7 +52,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Page footer Js -->
     @RenderSection("FooterScripts", required: false)
