@@ -9,3 +9,10 @@ For a general explanation, see the article:
 This package will install a few examples in the "Views" folder, along with a  Themes folder which includes an unstyled "starter" theme.
 
 Credit goes to [Shannon Deminick's *Articulate* package](https://github.com/Shazwazza/Articulate) for inspiration and initial code.
+
+## Resources ##
+GitHub Repository: [https://github.com/hfloyd/Dragonfly.UmbracoTheming](https://github.com/hfloyd/Dragonfly.UmbracoTheming)
+
+- [Dragonfly Theming for Umbraco 10](https://github.com/hfloyd/Dragonfly.Umbraco10.Theming) 
+- [Dragonfly Theming for Umbraco 8](https://github.com/hfloyd/Dragonfly.Umbraco8Theming) *\*This has some better documentation you might want to check out*
+- [Dragonfly Theming for Umbraco 7](https://github.com/hfloyd/Dragonfly.UmbracoTheming)
