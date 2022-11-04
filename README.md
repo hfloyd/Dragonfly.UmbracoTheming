@@ -10,6 +10,11 @@ This package will install a few examples in the "Views" folder, along with a  Th
 
 Credit goes to [Shannon Deminick's *Articulate* package](https://github.com/Shazwazza/Articulate) for inspiration and initial code.
 
+## Installation ##
+[![Nuget Downloads](https://buildstats.info/nuget/Dragonfly.UmbracoTheming)](https://www.nuget.org/packages/Dragonfly.UmbracoTheming/)
+
+    PM > Install-Package Dragonfly.UmbracoTheming
+
 ## Resources ##
 GitHub Repository: [https://github.com/hfloyd/Dragonfly.UmbracoTheming](https://github.com/hfloyd/Dragonfly.UmbracoTheming)
 
