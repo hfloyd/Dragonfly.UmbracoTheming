@@ -9,10 +9,10 @@ Install the correct package for your Umbraco installation.
 
 | Umbraco Version | Package                                                                 |
 | --------------- | -------------------------------------------------------------------------------- |
-| v 10 +           | see: [Dragonfly.Umbraco10.SiteAuditor](https://github.com/hfloyd/Dragonfly.Umbraco10.SiteAuditor) |
+| v 10 +           | see: [Dragonfly.Umbraco10.Theming](https://github.com/hfloyd/Dragonfly.Umbraco10.Theming) |
 | v 9             | unsupported                                                                 |
 | v 8             | see: [Dragonfly.Umbraco8Theming](https://github.com/hfloyd/Dragonfly.Umbraco8Theming) |
-| v 7             | This package   |
+| v 7             | **This package**   |
 
 ## Background
 
