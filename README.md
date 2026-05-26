@@ -2,6 +2,20 @@
 
 A Theming system for Umbraco created by [Heather Floyd](https://www.HeatherFloyd.com).
 
+
+## Versions
+
+Install the correct package for your Umbraco installation.
+
+| Umbraco Version | Package                                                                 |
+| --------------- | -------------------------------------------------------------------------------- |
+| v 10 +           | see: [Dragonfly.Umbraco10.SiteAuditor](https://github.com/hfloyd/Dragonfly.Umbraco10.SiteAuditor) |
+| v 9             | unsupported                                                                 |
+| v 8             | see: [Dragonfly.Umbraco8Theming](https://github.com/hfloyd/Dragonfly.Umbraco8Theming) |
+| v 7             | This package   |
+
+## Background
+
 For a general explanation, see the article:
 
  [How to Create Multiple Unique Sites in One Installation Using Theming and the Umbraco Grid](https://24days.in/umbraco-cms/2016/unique-sites-using-theming/)
